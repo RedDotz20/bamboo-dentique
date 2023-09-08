@@ -1,0 +1,43 @@
+.coverPageWrapper {
+	position: relative;
+}
+
+.coverPageImg {
+	/* position: fixed; */
+	z-index: -1;
+	width: 100%;
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.coverContent {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	height: 100vh;
+	width: 100%;
+	padding: 4rem;
+}
+
+.coverContent h1 {
+	font-size: 3rem;
+	font-weight: 700;
+	/* margin-bottom: 1rem; */
+}
+
+.coverContent p {
+	font-size: 1.5rem;
+	font-weight: 400;
+	margin-bottom: 1rem;
+}
+
+.browseButton {
+	width: 250px;
+	height: 50px;
+	border-radius: 1rem;
+	background-color: #caa67d;
+	color: black;
+}
