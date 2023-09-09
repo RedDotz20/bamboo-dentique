@@ -1,0 +1,18 @@
+.mainFooter {
+	background-color: #a76f3b;
+}
+
+.copyrightSection {
+	background-color: #caa580;
+	display: flex;
+	width: 100%;
+	justify-content: space-around;
+	align-items: center;
+	padding: 1rem 0;
+}
+
+.copyrightSection h5 {
+	font-family: 'Quicksand-SemiBold';
+	font-size: 1.25rem;
+	color: #fff;
+}

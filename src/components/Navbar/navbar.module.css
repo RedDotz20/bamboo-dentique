@@ -1,0 +1,37 @@
+.navbar {
+	position: fixed;
+	top: 0;
+	z-index: 100;
+	overflow: hidden;
+	top: 0;
+	height: 60px;
+	background-color: transparent;
+	align-items: center;
+	display: flex;
+	padding: 0.5rem 4rem;
+	width: 100%;
+	gap: 4px;
+}
+
+.navbar > .route {
+	cursor: pointer;
+	font-family: 'Quicksand-SemiBold';
+	font-size: 1.25rem;
+	padding: 0.75rem;
+	text-decoration: none;
+	color: #000;
+}
+
+.navbar > .route:first-child {
+	color: #a76f3b;
+	font-family: 'Quicksand-Bold';
+	font-size: 1.25rem;
+}
+
+.navbar > :nth-child(2):not(:last-child) {
+	margin: 0 2rem;
+}
+
+.navbar > .route:last-child {
+	margin-left: auto;
+}

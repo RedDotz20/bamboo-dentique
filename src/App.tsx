@@ -1,13 +1,43 @@
-import CoverPageSection from './components/CoverPageSection';
-import ProductFeatureSection from './components/ProductFeatureSection';
+import CoverPageSection from './sections/CoverPageSection';
+import ProductFeatureSection from './sections/ProductFeatureSection';
+import GallerySection from './sections/GallerySection';
+import FooterSection from './sections/FooterSection';
+import Navbar from './components/Navbar';
+import ScrollToTopButton from './components/ScrollToTopButton';
 
-function App() {
+export default function App() {
 	return (
 		<main>
+			<BootstrapCustomTheme />
+			<Navbar />
+			<ScrollToTopButton />
+
 			<CoverPageSection />
 			<ProductFeatureSection />
+			<GallerySection />
+			<FooterSection />
 		</main>
 	);
 }
 
-export default App;
+function BootstrapCustomTheme() {
+	return (
+		<style type="text/css">
+			{`
+			.btn-browseProduct {
+				font-family: "QuickSand-Bold";
+				background-color: #caa67d;
+				color: white;
+				font-weight: 700;
+				font-size: 1.25rem;
+				border-radius: 12px;
+			}
+
+			// .btn-browseProduct:hover {
+			//   background-color: black;
+			// }
+
+		`}
+		</style>
+	);
+}
