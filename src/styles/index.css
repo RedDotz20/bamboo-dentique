@@ -17,6 +17,26 @@
 /* #root {
 	max-width: 1280px;
 	margin: 0 auto;
-	padding: 2rem;
+	padding: 2rem; 
 	text-align: center;
 } */
+
+/* :root {
+	font-family: 'QuickSand';
+} */
+
+* {
+	font-family: 'QuickSand-Normal', Avenir, Helvetica, Arial, sans-serif;
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+}
+
+*::selection {
+	color: white;
+	background-color: #caa67d;
+}
+
+body {
+	background-color: #d7d8da;
+}
