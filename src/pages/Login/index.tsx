@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Form, Button } from 'react-bootstrap';
-
+import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
+import { useNavigate } from 'react-router-dom';
 import Styles from './login.module.css';
 
 type ChangeEventType = React.ChangeEvent<HTMLInputElement>;
@@ -13,6 +14,9 @@ export default function LoginPage() {
 		username: '',
 		password: '',
 	});
+
+	const navigate = useNavigate();
+
 	const handleInputChange = (event: ChangeEventType) => {
 		const { name, value } = event.target;
 		setLoginData({ ...loginData, [name]: value });
@@ -35,35 +39,25 @@ export default function LoginPage() {
 	return (
 		<section className={Styles.loginWrapper}>
 			<div className={Styles.loginContainer}>
-				<Form
-					onSubmit={handleSubmit}
-					className={Styles.formGroup}
-				>
+				<Form onSubmit={handleSubmit}>
 					<div>
-						<h2>Hi there!</h2>
+						<h3>Hi there!</h3>
 						<h3>Let's get you started,</h3>
 					</div>
-
-					<Form.Group
-						controlId="formUsername"
-						className={Styles.inputGroup}
-					>
+					<Form.Group controlId="formUsername">
 						<Form.Label>Username</Form.Label>
 						<Form.Control
 							type="text"
+							placeholder="Enter your username"
 							name="username"
-							placeholder="Enter username"
 							value={loginData.username}
 							onChange={handleInputChange}
-							required
 						/>
 					</Form.Group>
 
-					<Form.Group
-						controlId="formPassword"
-						className={Styles.inputGroup}
-					>
+					<Form.Group controlId="formPassword">
 						<Form.Label>Password</Form.Label>
+
 						<div className="position-relative">
 							<Form.Control
 								type={showPassword ? 'text' : 'password'}
@@ -74,33 +68,39 @@ export default function LoginPage() {
 								required
 							/>
 							<Button
-								variant="outline-secondary"
+								variant="passwordControl"
 								onClick={togglePasswordVisibility}
 								className="position-absolute top-50 translate-middle-y end-0"
 							>
-								{showPassword ? 'Hide' : 'Show'}
+								{showPassword ? <EyeFill /> : <EyeSlashFill />}
 							</Button>
 						</div>
 					</Form.Group>
 
-					<Form.Group
-						controlId="rememberMe"
-						className={Styles.inputGroup}
-					>
+					<Form.Group controlId="formRememberMe">
 						<Form.Check
 							type="checkbox"
-							label="Remember me"
+							label="Remember Me"
+							name="rememberMe"
 							checked={isRemember}
 							onChange={handleCheckboxChange}
 						/>
 					</Form.Group>
 
-					<Button
-						variant="primary"
-						type="submit"
-					>
-						SIGN IN
-					</Button>
+					<div className={Styles.buttonGroup}>
+						<Button
+							variant="dark"
+							type="submit"
+						>
+							SIGN IN
+						</Button>
+						<Button
+							variant="dark"
+							onClick={() => navigate('/register')}
+						>
+							CREATE ACCOUNT
+						</Button>
+					</div>
 				</Form>
 			</div>
 		</section>

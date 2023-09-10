@@ -1,4 +1,4 @@
-.loginWrapper {
+.registerWrapper {
 	display: flex;
 	justify-content: center;
 	align-items: center;
@@ -6,11 +6,15 @@
 	background-color: #caa67d;
 }
 
-.loginContainer {
+.registerContainer {
 	background-color: #fff;
 	height: 400px;
 	padding: 2rem;
 	width: 400px;
+}
+
+h3:last-of-type {
+	margin-bottom: 1rem;
 }
 
 form {
@@ -18,32 +22,6 @@ form {
 	flex-direction: column;
 	justify-content: space-between;
 	height: 100%;
-}
-
-.form-group {
-	margin-bottom: 1rem;
-}
-
-h2,
-h3 {
-	font-family: 'QuickSand-SemiBold';
-}
-
-h3:last-of-type {
-	/* font-size: 2rem; */
-	margin-bottom: 1rem;
-}
-
-button[type='submit'] {
-	width: 100%;
-	background-color: #caa67d;
-	border: 0;
-	margin-top: auto;
-}
-
-button[type='submit']:hover {
-	width: 100%;
-	background-color: #caa67d;
 }
 
 .buttonGroup {

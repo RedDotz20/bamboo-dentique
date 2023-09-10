@@ -48,10 +48,10 @@ function BootstrapCustomTheme() {
 				border-radius: 12px;
 			}
 
-			// .btn-browseProduct:hover {
-			//   background-color: black;
-			// }
-
+			.btn-browseProduct:hover {
+				color: white;
+				background-color: #b5956a;
+			}
 		`}
 		</style>
 	);
