@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
+import { useNavigate } from 'react-router-dom';
 
 import Styles from './navbar.module.css';
 
 export default function Navbar() {
+	const navigate = useNavigate();
 	const [scrollPosition, setScrollPosition] = useState(0),
-		partialHeight = scrollPosition >= window.innerHeight / 4,
-		viewportHeight = window.innerHeight;
+		partialHeight = scrollPosition >= window.innerHeight / 4;
+	// viewportHeight = window.innerHeight;
+
+	const navigateToLogin = () => navigate('/login');
 
 	useEffect(() => {
 		const handleScroll = () => setScrollPosition(window.scrollY);
@@ -49,7 +53,12 @@ export default function Navbar() {
 				Gallery
 			</GoToSection>
 
-			<span className={Styles.route}>LOGIN</span>
+			<button
+				onClick={navigateToLogin}
+				className={Styles.route}
+			>
+				LOGIN
+			</button>
 		</nav>
 	);
 }

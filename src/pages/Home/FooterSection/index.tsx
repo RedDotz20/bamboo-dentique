@@ -1,6 +1,5 @@
+import Section from '../../../components/Section';
 import Styles from './footer.module.css';
-
-import Section from '../../components/Section';
 
 export default function FooterSection() {
 	const currentYear = new Date().getFullYear();
@@ -19,12 +18,10 @@ export default function FooterSection() {
 				<p>Contact Us</p>
 			</div>
 			<div className={Styles.copyrightSection}>
-				<h5>
-					Copyright &copy; {currentYear} BambooDentique. All Rights Reserve
-				</h5>
-				<h5>
+				<p>Copyright &copy; {currentYear} BambooDentique. All Rights Reserve</p>
+				<p>
 					made by <a href="https://github.com/RedDotz20">RedDotz</a>
-				</h5>
+				</p>
 			</div>
 		</Section>
 	);

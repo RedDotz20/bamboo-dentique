@@ -1,6 +1,6 @@
+import Section from '../../../components/Section';
 import Styles from './gallery.module.css';
-import Section from '../../components/Section';
-import { productsData } from '../../data/productsData';
+import { productsData } from '../../../data/productsData';
 
 function ImageContainer({ image }: { image: string }) {
 	return (

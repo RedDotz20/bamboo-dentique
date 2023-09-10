@@ -1,21 +1,36 @@
-import CoverPageSection from './sections/CoverPageSection';
-import ProductFeatureSection from './sections/ProductFeatureSection';
-import GallerySection from './sections/GallerySection';
-import FooterSection from './sections/FooterSection';
-import Navbar from './components/Navbar';
-import ScrollToTopButton from './components/ScrollToTopButton';
+import { lazy, Suspense } from 'react';
+import { Routes, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+const LoginPage = lazy(() => import('./pages/Login'));
+const RegisterPage = lazy(() => import('./pages/Register'));
 
 export default function App() {
 	return (
 		<main>
 			<BootstrapCustomTheme />
-			<Navbar />
-			<ScrollToTopButton />
-
-			<CoverPageSection />
-			<ProductFeatureSection />
-			<GallerySection />
-			<FooterSection />
+			<Routes>
+				<Route
+					path="/"
+					element={<Home />}
+				/>
+				<Route
+					path="/login"
+					element={
+						<Suspense fallback={<h1>loading...</h1>}>
+							<LoginPage />
+						</Suspense>
+					}
+				/>
+				<Route
+					path="/register"
+					element={<RegisterPage />}
+				/>
+				<Route
+					path="*"
+					element={<h1>404 Not Found</h1>}
+				/>
+			</Routes>
 		</main>
 	);
 }

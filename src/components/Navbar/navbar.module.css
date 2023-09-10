@@ -32,6 +32,9 @@
 	margin: 0 2rem;
 }
 
-.navbar > .route:last-child {
+.navbar button {
+	border: none;
+	background-color: transparent;
+	text-decoration: none;
 	margin-left: auto;
 }
