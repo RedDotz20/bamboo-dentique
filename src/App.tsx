@@ -24,7 +24,11 @@ export default function App() {
 				/>
 				<Route
 					path="/register"
-					element={<RegisterPage />}
+					element={
+						<Suspense fallback={<h1>loading ...</h1>}>
+							<RegisterPage />
+						</Suspense>
+					}
 				/>
 				<Route
 					path="*"
@@ -41,7 +45,7 @@ function BootstrapCustomTheme() {
 			{`
 			.btn-browseProduct {
 				font-family: "QuickSand-Bold";
-				background-color: #caa67d;
+				background-color: #caa67d !important;
 				color: white;
 				font-weight: 700;
 				font-size: 1.25rem;
@@ -49,6 +53,16 @@ function BootstrapCustomTheme() {
 			}
 
 			.btn-browseProduct:hover {
+				color: white;
+				background-color: #b5956a;
+			}
+
+			.btn-browseProduct:active {
+				color: white;
+				background-color: #b5956a;
+			}
+
+			.btn-browseProduct:focus {
 				color: white;
 				background-color: #b5956a;
 			}
