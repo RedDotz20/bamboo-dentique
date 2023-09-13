@@ -1,18 +1,33 @@
 .mainFooter {
 	background-color: #a76f3b;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 1rem 1.75rem;
+	color: #fff;
+	gap: 4rem;
+	align-items: center;
+}
+
+.mainFooter div > p {
+	font-family: 'Quicksand-Bold';
 }
 
 .copyrightSection {
+	flex-wrap: wrap;
 	background-color: #caa580;
 	display: flex;
 	width: 100%;
 	justify-content: space-around;
+	text-align: center;
 	align-items: center;
-	padding: 1rem 0;
+	padding: 1rem 2rem;
+	font-family: 'Quicksand-Bold';
+	font-size: 1.25rem;
 }
 
-.copyrightSection h5 {
-	font-family: 'Quicksand-SemiBold';
-	font-size: 1.25rem;
-	color: #fff;
+@media (max-width: 495px) {
+	.mainFooter {
+		gap: 1.75rem;
+	}
 }

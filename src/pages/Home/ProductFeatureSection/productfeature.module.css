@@ -4,11 +4,12 @@
 	flex-direction: column;
 	margin: 0 auto;
 	max-width: 768px;
+	padding: 0 3rem;
 }
 
 .productHeading {
 	font-family: 'Quicksand-Semibold';
-	font-size: 2.5rem;
+	font-size: 4rem;
 	letter-spacing: 0.15ch;
 	text-align: center;
 	margin: 3.25rem 0;
@@ -24,16 +25,18 @@
 	display: block;
 }
 
+.featureContainer,
 .featureWrapper {
 	display: flex;
 	justify-content: center;
+}
+
+.featureWrapper {
 	margin-bottom: 6rem;
 }
 
 .featureContainer {
-	display: flex;
 	flex-direction: column;
-	justify-content: center;
 }
 
 .featureContainer h3 {
@@ -51,20 +54,21 @@
 .featureWrapper:nth-child(even) .imageContainer {
 	margin-right: 2rem;
 }
+
 .featureWrapper:nth-child(odd) .imageContainer {
 	margin-left: 2rem;
 }
 
 .featureWrapper:nth-child(even) .imageContainer > img {
-	box-shadow: 10px 10px 0px 1px rgba(167, 111, 59, 1);
-	-webkit-box-shadow: 10px 10px 0px 1px rgba(167, 111, 59, 1);
-	-moz-box-shadow: 10px 10px 0px 1px rgba(167, 111, 59, 1);
+	box-shadow: 10px 10px 0 1px #f6e4d4;
+	-webkit-box-shadow: 10px 10px 0 1px #a76f3b;
+	-moz-box-shadow: 10px 10px 0 1px #a76f3b;
 }
 
 .featureWrapper:nth-child(odd) .imageContainer > img {
-	box-shadow: -10px 10px 0px 1px rgba(167, 111, 59, 1);
-	-webkit-box-shadow: -10px 10px 0px 1px rgba(167, 111, 59, 1);
-	-moz-box-shadow: -10px 10px 0px 1px rgba(167, 111, 59, 1);
+	box-shadow: -10px 10px 0 1px #a76f3b;
+	-webkit-box-shadow: -10px 10px 0 1px #a76f3b;
+	-moz-box-shadow: -10px 10px 0 1px #a76f3b;
 }
 
 .featureWrapper:nth-child(odd) {
@@ -74,4 +78,48 @@
 .featureWrapper:nth-child(odd) h3,
 .featureWrapper:nth-child(odd) p {
 	text-align: right;
+}
+
+@media (max-width: 768px) {
+	.productHeading {
+		font-size: 2.75rem;
+	}
+
+	.featureContainer h3 {
+		font-family: 'Quicksand-Semibold';
+		font-size: 2rem;
+		letter-spacing: 0.1ch;
+	}
+
+	.featureContainer p {
+		font-family: 'Quicksand-Normal';
+		font-size: 1em;
+		color: #5d5d5d;
+	}
+}
+
+@media (max-width: 480px) {
+	.featureWrapper {
+		flex-wrap: wrap;
+	}
+
+	.imageContainer {
+		margin-bottom: 1.5rem;
+	}
+
+	.productHeading {
+		font-size: 2.5rem;
+	}
+
+	.featureContainer h3 {
+		font-family: 'Quicksand-Semibold';
+		font-size: 1.75rem;
+		letter-spacing: 0.1ch;
+	}
+
+	.featureContainer p {
+		font-family: 'Quicksand-Normal';
+		font-size: 0.75em;
+		color: #5d5d5d;
+	}
 }

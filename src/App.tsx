@@ -1,9 +1,8 @@
-import { lazy, Suspense } from 'react';
 import { Routes, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
-const LoginPage = lazy(() => import('./pages/Login'));
-const RegisterPage = lazy(() => import('./pages/Register'));
+import LoginPage from './pages/Login';
+import RegisterPage from './pages/Register';
 
 export default function App() {
 	return (
@@ -16,19 +15,11 @@ export default function App() {
 				/>
 				<Route
 					path="/login"
-					element={
-						<Suspense fallback={<h1>loading...</h1>}>
-							<LoginPage />
-						</Suspense>
-					}
+					element={<LoginPage />}
 				/>
 				<Route
 					path="/register"
-					element={
-						<Suspense fallback={<h1>loading ...</h1>}>
-							<RegisterPage />
-						</Suspense>
-					}
+					element={<RegisterPage />}
 				/>
 				<Route
 					path="*"

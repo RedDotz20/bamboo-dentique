@@ -2,8 +2,6 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-scroll';
 import { useNavigate } from 'react-router-dom';
 
-import UserProfile from './UserProfile';
-
 import Styles from './navbar.module.css';
 
 export default function Navbar() {

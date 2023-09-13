@@ -15,7 +15,10 @@ function ImageContainer({ image }: { image: string }) {
 
 export default function GallerySection() {
 	return (
-		<Section id="gallery">
+		<Section
+			id="gallery"
+			className={Styles.gallerySection}
+		>
 			<h2 className={Styles.galleryTitle}>Gallery</h2>
 			<div className={Styles.imageWrapper}>
 				{productsData.map((product) => {

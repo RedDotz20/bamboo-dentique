@@ -1,5 +1,5 @@
 import Button from 'react-bootstrap/Button';
-import CoverPage from '../../../assets/images/CoverPage.png';
+// import CoverPage from '../../../assets/images/CoverPage.png';
 import Styles from './coverPage.module.css';
 import Section from '../../../components/Section';
 
@@ -18,11 +18,7 @@ export default function CoverPageSection() {
 					</Button>
 				</header>
 			</div>
-			<img
-				src={CoverPage}
-				alt="CoverPage"
-				className={Styles.coverPageImg}
-			/>
+			<div className={Styles.coverPageImg}></div>
 		</Section>
 	);
 }

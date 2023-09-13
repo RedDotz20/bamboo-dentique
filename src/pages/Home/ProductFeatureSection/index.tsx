@@ -11,18 +11,21 @@ interface ProductFeatureProps {
 
 function ProductFeature(props: ProductFeatureProps) {
 	return (
-		<div className={Styles.featureWrapper}>
-			<div className={Styles.imageContainer}>
-				<img
-					src={props.image}
-					alt={props.image}
-				/>
+		<>
+			<div className={Styles.featureWrapper}>
+				<div className={Styles.imageContainer}>
+					<img
+						src={props.image}
+						alt={props.image}
+					/>
+				</div>
+
+				<div className={Styles.featureContainer}>
+					<h3>{props.title}</h3>
+					<p>{props.children}</p>
+				</div>
 			</div>
-			<div className={Styles.featureContainer}>
-				<h3>{props.title}</h3>
-				<p>{props.children}</p>
-			</div>
-		</div>
+		</>
 	);
 }
 
