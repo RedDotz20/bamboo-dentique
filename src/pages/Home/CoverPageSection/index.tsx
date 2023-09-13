@@ -1,6 +1,6 @@
 import Button from 'react-bootstrap/Button';
 // import CoverPage from '../../../assets/images/CoverPage.png';
-import Styles from './coverPage.module.css';
+import Styles from './coverpage.module.css';
 import Section from '../../../components/Section';
 
 export default function CoverPageSection() {
