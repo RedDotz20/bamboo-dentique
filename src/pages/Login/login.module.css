@@ -19,6 +19,7 @@ form {
 	justify-content: space-between;
 	height: 100%;
 }
+
 .form-group {
 	margin-bottom: 2rem;
 	background-color: aqua;
@@ -53,6 +54,18 @@ button[type='submit']:hover {
 	width: 100%;
 }
 
-.buttonGroup button:first-of-type {
+.buttonGroup button[type='submit'] {
 	margin-bottom: 0.5rem;
+}
+
+.buttonGroup > div {
+	display: flex;
+	width: 100%;
+}
+
+.buttonGroup button {
+	width: 100%;
+}
+.buttonGroup button:first-child {
+	margin-right: 0.5rem;
 }

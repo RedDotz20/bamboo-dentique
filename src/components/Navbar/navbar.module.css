@@ -31,7 +31,7 @@
 	margin: 0 2rem;
 }
 
-.navbar button {
+.navbar > :last-child {
 	border: none;
 	background-color: transparent;
 	text-decoration: none;

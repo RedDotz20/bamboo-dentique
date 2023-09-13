@@ -7,11 +7,11 @@ import UserProfile from './UserProfile';
 import Styles from './navbar.module.css';
 
 export default function Navbar() {
-	const navigate = useNavigate();
 	const [scrollPosition, setScrollPosition] = useState(0),
 		partialHeight = scrollPosition >= window.innerHeight / 4;
 	// viewportHeight = window.innerHeight;
 
+	const navigate = useNavigate();
 	const navigateToLogin = () => navigate('/login');
 
 	useEffect(() => {
@@ -61,7 +61,6 @@ export default function Navbar() {
 			>
 				LOGIN
 			</button>
-			<UserProfile />
 		</nav>
 	);
 }

@@ -8,7 +8,7 @@ type ChangeEventType = React.ChangeEvent<HTMLInputElement>;
 type FormEventType = React.FormEvent<HTMLFormElement>;
 
 export default function LoginPage() {
-	const [isRemember, setIsRemember] = useState(false);
+	// const [isRemember, setIsRemember] = useState(false);
 	const [showPassword, setShowPassword] = useState(false);
 	const [loginData, setLoginData] = useState({
 		username: '',
@@ -26,14 +26,12 @@ export default function LoginPage() {
 		setShowPassword(!showPassword);
 	};
 
-	const handleCheckboxChange = (event: ChangeEventType) => {
-		setIsRemember(event.target.checked);
-	};
+	// const handleCheckboxChange = (event: ChangeEventType) => {
+	// 	setIsRemember(event.target.checked);
+	// };
 
 	const handleSubmit = (event: FormEventType) => {
 		event.preventDefault();
-		//TODO: Add login logic
-		console.log(loginData);
 	};
 
 	return (
@@ -77,7 +75,7 @@ export default function LoginPage() {
 						</div>
 					</Form.Group>
 
-					<Form.Group controlId="formRememberMe">
+					{/* <Form.Group controlId="formRememberMe">
 						<Form.Check
 							type="checkbox"
 							label="Remember Me"
@@ -85,7 +83,7 @@ export default function LoginPage() {
 							checked={isRemember}
 							onChange={handleCheckboxChange}
 						/>
-					</Form.Group>
+					</Form.Group> */}
 
 					<div className={Styles.buttonGroup}>
 						<Button
@@ -94,16 +92,22 @@ export default function LoginPage() {
 						>
 							SIGN IN
 						</Button>
-						<Button
-							variant="dark"
-							onClick={() => navigate('/register')}
-						>
-							CREATE ACCOUNT
-						</Button>
+						<div>
+							<Button
+								variant="dark"
+								onClick={() => navigate('/')}
+							>
+								RETURN HOME
+							</Button>
+							<Button
+								variant="dark"
+								onClick={() => navigate('/register')}
+							>
+								CREATE ACCOUNT
+							</Button>
+						</div>
 					</div>
 				</Form>
-
-				<Button></Button>
 			</div>
 		</section>
 	);

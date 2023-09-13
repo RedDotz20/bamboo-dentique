@@ -28,8 +28,6 @@ export default function RegisterPage() {
 
 	const handleSubmit = (event: FormEventType) => {
 		event.preventDefault();
-		//TODO: Add Register logic
-		console.log(loginData);
 	};
 
 	return (
