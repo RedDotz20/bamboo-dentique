@@ -1,5 +1,5 @@
-import Section from '../../../components/Section';
-import { productsData } from '../../../data/productsData';
+import Section from '../../components/Section';
+import { productsData } from '../../data/productsData';
 
 interface ProductFeatureProps {
 	image: string;

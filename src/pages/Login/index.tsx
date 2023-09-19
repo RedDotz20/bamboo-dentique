@@ -42,7 +42,7 @@ export default function LoginPage() {
 
 	return (
 		<section className="grid place-items-center h-screen bg-[#caa67d]">
-			<div className="bg-white p-4 h-96 w-96">
+			<div className="bg-white p-8 h-96 w-96">
 				<form
 					onSubmit={handleSubmit}
 					className="h-full flex flex-col "

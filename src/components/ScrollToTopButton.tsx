@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { animateScroll } from 'react-scroll';
-import { ArrowUp } from 'react-bootstrap-icons';
+import ArrowUpwardIcon from '@mui/icons-material/ArrowUpward';
 
 function ScrollToTopButton() {
 	const [isVisible, setIsVisible] = useState(false);
@@ -30,13 +30,13 @@ function ScrollToTopButton() {
 
 	return (
 		<button
-			onClick={scrollToTop}
-			aria-label="Scroll-to-Top"
 			type="button"
 			className="fixed w-10 h-10 bottom-10 right-10 cursor-pointer rounded-full bg-[#a76f3b] text-white border-none transition-all duration-300 ease-in-out flex justify-center items-center"
+			aria-label="Scroll-to-Top"
 			style={buttonStyles}
+			onClick={scrollToTop}
 		>
-			<ArrowUp size={24} />
+			<ArrowUpwardIcon />
 		</button>
 	);
 }

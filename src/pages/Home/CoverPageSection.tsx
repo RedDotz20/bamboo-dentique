@@ -1,5 +1,5 @@
-import Section from '../../../components/Section';
-import CoverPage from '../../../assets/images/CoverPage.png';
+import Section from '../../components/Section';
+import CoverPage from '../../assets/images/CoverPage.png';
 
 import { Button } from '@mui/material';
 

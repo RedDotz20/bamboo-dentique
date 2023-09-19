@@ -1,12 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App.tsx';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 
+import App from './App.tsx';
 import ErrorBoundery from './ErrorBoundery.tsx';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
 import './styles/fontFamily.css';
 import './styles/index.css';
 
