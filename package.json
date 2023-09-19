@@ -6,8 +6,9 @@
 	"scripts": {
 		"dev": "vite",
 		"build": "tsc && vite build",
-		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-		"preview": "vite preview"
+		"server": "cd server && php -S localhost:4000",
+		"preview": "vite preview",
+		"lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0"
 	},
 	"dependencies": {
 		"@emotion/react": "^11.11.1",
@@ -17,6 +18,7 @@
 		"@mui/material": "^5.14.10",
 		"@mui/styled-engine-sc": "^5.14.10",
 		"@npmcli/fs": "latest",
+		"axios": "^1.5.0",
 		"framer-motion": "^10.16.4",
 		"react": "^18.2.0",
 		"react-dom": "^18.2.0",

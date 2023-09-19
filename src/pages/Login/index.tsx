@@ -10,6 +10,8 @@ import {
 } from '@mui/material';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 
+import { loginService } from '../../services/authentication/loginService';
+
 type ChangeEventType = React.ChangeEvent<HTMLInputElement>;
 type FormEventType = React.FormEvent<HTMLFormElement>;
 
@@ -37,6 +39,7 @@ export default function LoginPage() {
 	// };
 
 	const handleSubmit = (event: FormEventType) => {
+		loginService(loginData); // login service
 		event.preventDefault();
 	};
 

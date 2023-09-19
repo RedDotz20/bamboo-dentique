@@ -1,10 +1,10 @@
 <?php
 
-require_once 'database.php';
+require_once 'index.php';
 
 header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Methods: POST');
-header('Access-Control-Allow-Headers: Content-Type, Authorization');
+header('Access-Control-Allow-Methods: *');
+header('Access-Control-Allow-Headers: *');
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$json = file_get_contents('php://input');
@@ -31,23 +31,21 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$row = $result->fetch_assoc();
 			if ($row['password'] === $password) {
 				http_response_code(200);
-				echo json_encode(['message' => 'Login successful']);
+				echo json_encode(['message' => 'Login Successful']);
 			} else {
 				http_response_code(401);
-				echo json_encode(['message' => 'Invalid credentials']);
+				echo json_encode(['message' => 'Invalid Credentials']);
 			}
 		} else {
 			http_response_code(404);
-			echo json_encode(['message' => 'User not found']);
+			echo json_encode(['message' => 'User Not Found']);
 		}
 
 		$stmt->close();
 	} else {
 		http_response_code(400);
-		echo json_encode(['message' => 'Missing username or password']);
+		echo json_encode(['message' => 'Missing Username or Password']);
 	}
 }
 
 $connection->close();
-
-?>
