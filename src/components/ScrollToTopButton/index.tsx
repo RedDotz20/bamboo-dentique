@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { animateScroll } from 'react-scroll';
 import { ArrowUp } from 'react-bootstrap-icons';
-import Styles from './scrollToTopButton.module.css';
 
 function ScrollToTopButton() {
 	const [isVisible, setIsVisible] = useState(false);
@@ -34,7 +33,7 @@ function ScrollToTopButton() {
 			onClick={scrollToTop}
 			aria-label="Scroll-to-Top"
 			type="button"
-			className={Styles.scrollToTopButton}
+			className="fixed w-10 h-10 bottom-10 right-10 cursor-pointer rounded-full bg-[#a76f3b] text-white border-none transition-all duration-300 ease-in-out flex justify-center items-center"
 			style={buttonStyles}
 		>
 			<ArrowUp size={24} />

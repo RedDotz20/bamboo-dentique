@@ -1,9 +1,14 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
 
-import Styles from './register.module.css';
+import {
+	IconButton,
+	InputAdornment,
+	TextField,
+	Typography,
+	Button,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 type ChangeEventType = React.ChangeEvent<HTMLInputElement>;
 type FormEventType = React.FormEvent<HTMLFormElement>;
@@ -31,61 +36,78 @@ export default function RegisterPage() {
 	};
 
 	return (
-		<section className={Styles.registerWrapper}>
-			<div className={Styles.registerContainer}>
-				<Form onSubmit={handleSubmit}>
-					<div>
-						<h3>Ready to dive in?</h3>
-						<h3>Register here</h3>
-					</div>
-					<Form.Group controlId="formUsername">
-						<Form.Label>New Username</Form.Label>
-						<Form.Control
-							type="text"
-							placeholder="Enter your username"
-							name="username"
-							value={loginData.username}
-							onChange={handleInputChange}
-						/>
-					</Form.Group>
+		<section className="grid place-items-center h-screen bg-[#caa67d]">
+			<div className="bg-white p-4 h-96 w-96">
+				<form
+					onSubmit={handleSubmit}
+					className="h-full flex flex-col "
+				>
+					<Typography
+						variant="h4"
+						className="font-semiBold"
+					>
+						Ready to dive in?
+					</Typography>
+					<Typography
+						variant="h5"
+						className="font-semiBold"
+					>
+						Register Here,
+					</Typography>
 
-					<Form.Group controlId="formPassword">
-						<Form.Label>New Password</Form.Label>
-
-						<div className="position-relative">
-							<Form.Control
-								type={showPassword ? 'text' : 'password'}
-								name="password"
-								placeholder="Enter password"
-								value={loginData.password}
-								onChange={handleInputChange}
-								required
-							/>
-							<Button
-								variant="passwordControl"
-								onClick={togglePasswordVisibility}
-								className="position-absolute top-50 translate-middle-y end-0"
-							>
-								{showPassword ? <EyeFill /> : <EyeSlashFill />}
-							</Button>
-						</div>
-					</Form.Group>
-
-					<div className={Styles.buttonGroup}>
+					<TextField
+						size="medium"
+						margin="normal"
+						required
+						fullWidth
+						label="New Username"
+						variant="outlined"
+						name="username"
+						value={loginData.username}
+						onChange={handleInputChange}
+					/>
+					<TextField
+						size="medium"
+						required
+						fullWidth
+						label="New Password"
+						type={showPassword ? 'text' : 'password'}
+						variant="outlined"
+						value={loginData.password}
+						name="password"
+						onChange={handleInputChange}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									<IconButton
+										onClick={togglePasswordVisibility}
+										edge="end"
+									>
+										{showPassword ? <Visibility /> : <VisibilityOff />}
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
+					/>
+					<div className="flex flex-col gap-1 mt-auto">
 						<Button
-							variant="dark"
+							fullWidth
 							type="submit"
+							variant="contained"
+							color="primary"
 						>
-							JOIN US NOW
+							Join Us Now
 						</Button>
 						<Button
-							variant="dark"
+							fullWidth
+							variant="contained"
+							color="primary"
 							onClick={() => navigate('/login')}
 						>
-							RETURN TO LOGIN
+							Return to Login
 						</Button>
 					</div>
-				</Form>
+				</form>
 			</div>
 		</section>
 	);

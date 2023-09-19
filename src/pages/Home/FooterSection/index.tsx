@@ -1,14 +1,10 @@
 import Section from '../../../components/Section';
-import Styles from './footer.module.css';
 
 export default function FooterSection() {
 	const currentYear = new Date().getFullYear();
 	return (
-		<Section
-			id="footer"
-			className={Styles.footerSection}
-		>
-			<div className={Styles.mainFooter}>
+		<Section id="footer">
+			<div className="bg-[#a76f3b] flex flex-wrap justify-center py-4 px-7 text-white gap-16 items-center font-bold max-[495px]:gap-[1.75rem]">
 				<div>
 					<p>About Us</p>
 					<p>Blog</p>
@@ -27,7 +23,7 @@ export default function FooterSection() {
 					<p>Services</p>
 				</div>
 			</div>
-			<div className={Styles.copyrightSection}>
+			<div className="flex flex-wrap bg-[#caa580] justify-around w-full text-center items-center py-4 px-8 font-bold text-xl">
 				<p>Copyright &copy; {currentYear} BambooDentique. All Rights Reserve</p>
 				<p>
 					made by <a href="https://github.com/RedDotz20">RedDotz</a>

@@ -1,8 +1,14 @@
 import { useState } from 'react';
-import { Form, Button } from 'react-bootstrap';
-import { EyeFill, EyeSlashFill } from 'react-bootstrap-icons';
 import { useNavigate } from 'react-router-dom';
-import Styles from './login.module.css';
+
+import {
+	InputAdornment,
+	TextField,
+	Button,
+	IconButton,
+	Typography,
+} from '@mui/material';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
 
 type ChangeEventType = React.ChangeEvent<HTMLInputElement>;
 type FormEventType = React.FormEvent<HTMLFormElement>;
@@ -35,79 +41,88 @@ export default function LoginPage() {
 	};
 
 	return (
-		<section className={Styles.loginWrapper}>
-			<div className={Styles.loginContainer}>
-				<Form onSubmit={handleSubmit}>
-					<div>
-						<h3>Hi there!</h3>
-						<h3>Let's get you started,</h3>
-					</div>
-					<Form.Group controlId="formUsername">
-						<Form.Label>Username</Form.Label>
-						<Form.Control
-							type="text"
-							placeholder="Enter your username"
-							name="username"
-							value={loginData.username}
-							onChange={handleInputChange}
-						/>
-					</Form.Group>
+		<section className="grid place-items-center h-screen bg-[#caa67d]">
+			<div className="bg-white p-4 h-96 w-96">
+				<form
+					onSubmit={handleSubmit}
+					className="h-full flex flex-col "
+				>
+					<Typography
+						variant="h4"
+						className="font-semiBold"
+					>
+						Hi there!
+					</Typography>
+					<Typography
+						variant="h5"
+						className="font-semiBold"
+					>
+						Let's get you started,
+					</Typography>
 
-					<Form.Group controlId="formPassword">
-						<Form.Label>Password</Form.Label>
-
-						<div className="position-relative">
-							<Form.Control
-								type={showPassword ? 'text' : 'password'}
-								name="password"
-								placeholder="Enter password"
-								value={loginData.password}
-								onChange={handleInputChange}
-								required
-							/>
-							<Button
-								variant="passwordControl"
-								onClick={togglePasswordVisibility}
-								className="position-absolute top-50 translate-middle-y end-0"
-							>
-								{showPassword ? <EyeFill /> : <EyeSlashFill />}
-							</Button>
-						</div>
-					</Form.Group>
-
-					{/* <Form.Group controlId="formRememberMe">
-						<Form.Check
-							type="checkbox"
-							label="Remember Me"
-							name="rememberMe"
-							checked={isRemember}
-							onChange={handleCheckboxChange}
-						/>
-					</Form.Group> */}
-
-					<div className={Styles.buttonGroup}>
+					<TextField
+						size="medium"
+						margin="normal"
+						required
+						fullWidth
+						label="Username"
+						variant="outlined"
+						name="username"
+						value={loginData.username}
+						onChange={handleInputChange}
+					/>
+					<TextField
+						size="medium"
+						required
+						fullWidth
+						label="Password"
+						type={showPassword ? 'text' : 'password'}
+						variant="outlined"
+						value={loginData.password}
+						name="password"
+						onChange={handleInputChange}
+						InputProps={{
+							endAdornment: (
+								<InputAdornment position="end">
+									<IconButton
+										onClick={togglePasswordVisibility}
+										edge="end"
+									>
+										{showPassword ? <Visibility /> : <VisibilityOff />}
+									</IconButton>
+								</InputAdornment>
+							),
+						}}
+					/>
+					<div className="flex flex-col gap-1 mt-auto">
 						<Button
-							variant="dark"
 							type="submit"
+							fullWidth
+							variant="contained"
+							color="primary"
 						>
-							SIGN IN
+							Sign In
 						</Button>
-						<div>
+						<div className="flex gap-1">
 							<Button
-								variant="dark"
+								fullWidth
+								variant="contained"
+								color="primary"
 								onClick={() => navigate('/')}
 							>
 								RETURN HOME
 							</Button>
 							<Button
-								variant="dark"
+								fullWidth
+								variant="contained"
+								color="primary"
 								onClick={() => navigate('/register')}
 							>
 								CREATE ACCOUNT
 							</Button>
 						</div>
 					</div>
-				</Form>
+				</form>
 			</div>
 		</section>
 	);
