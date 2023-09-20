@@ -29,16 +29,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		if ($result->num_rows === 1) {
 			$row = $result->fetch_assoc();
-			if ($row['password'] === $password) {
-				http_response_code(200);
-				echo json_encode(['message' => 'Login Successful']);
+			$hashedPassword = $row['password'];
+
+			if (password_verify($password, $hashedPassword)) {
+					http_response_code(200);
+					echo json_encode(['message' => 'Login Successful']);
 			} else {
-				http_response_code(401);
-				echo json_encode(['message' => 'Invalid Credentials']);
+					http_response_code(401);
+					echo json_encode(['message' => 'Invalid Credentials']);
 			}
+			
 		} else {
-			http_response_code(404);
-			echo json_encode(['message' => 'User Not Found']);
+					http_response_code(404);
+					echo json_encode(['message' => 'User Not Found']);
 		}
 
 		$stmt->close();

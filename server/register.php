@@ -6,6 +6,7 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
 
+//? Register New Account
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$json = file_get_contents('php://input');
 	$data = json_decode($json, true);
@@ -13,33 +14,60 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	if (isset($data['username']) && isset($data['password'])) {
 		$username = $data['username'];
 		$password = $data['password'];
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-		$stmt = $connection->prepare('INSERT INTO users (username, password) VALUES (?,?);');
-		if ($stmt === false) {
-			http_response_code(500);
-			echo json_encode([
-				'message' => 'Database error: Unable to prepare statement',
-			]);
-			exit();
-		}
+    //? Check if the user already exists
+    $check_query = "SELECT 1 FROM users WHERE LOWER(username) = LOWER(?) AND password = ?";
+    $check_stmt = $connection->prepare($check_query);
 
-		$stmt->bind_param('ss', $username, $password);
-		$result = $stmt->execute();
+    if ($check_stmt === false) {
+      http_response_code(500);
+      echo json_encode([ 'message' => 'Database error: Unable to prepare statement' ]);
+      exit();
+    }
 
-		if ($result) {
-			http_response_code(201);
-			echo json_encode(['message' => 'Account Successfully Registered']);
-		} else {
-			http_response_code(409);
-			echo json_encode(['message' => 'Invalid Account Details']);
-		}
-		$stmt->close();
+    $check_stmt->bind_param('ss', $username, $password);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+
+    if ($check_stmt->num_rows > 0) {
+      http_response_code(409);
+      echo json_encode(['message' => 'Account Already Exists']);
+      exit();
+    }
+
+		//? User does not exist, insert the new user
+    $insert_query = "INSERT INTO users (username, password) VALUES (?, ?)";
+    $insert_stmt = $connection->prepare($insert_query);
+
+    if ($insert_stmt === false) {
+      http_response_code(500);
+      echo json_encode([ 'message' => 'Database error: Unable to Prepare Statement' ]);
+      exit();
+    }
+
+    $insert_stmt->bind_param('ss', $username, $hashed_password);
+    $result = $insert_stmt->execute();
+
+    if ($result) {
+      http_response_code(201);
+      echo json_encode(['message' => 'Account Successfully Registered']);
+    } else {
+      http_response_code(500);
+      echo json_encode(['message' => 'Error while Registering the Account']);
+    }
+
+    $insert_stmt->close();
+
 	} else {
 		http_response_code(400);
 		echo json_encode(['message' => 'Missing Username or Password']);
 	}
   
-} else if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+}
+
+//? Delete Current Account
+if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   $json = file_get_contents('php://input');
   $data = json_decode($json, true);
 
@@ -50,9 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $connection->prepare('DELETE FROM users WHERE username = ? AND password = ?;');
     if ($stmt === false) {
       http_response_code(500);
-      echo json_encode([
-        'message' => 'Database error: Unable to prepare statement',
-      ]);
+      echo json_encode([ 'message' => 'Database error: Unable to Prepare Statement' ]);
       exit();
     }
 
@@ -64,7 +90,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       echo json_encode(['message' => 'Account Successfully Deleted']);
     } else {
       http_response_code(404);
-      echo json_encode(['message' => 'No matching account found']);
+      echo json_encode(['message' => 'No Matching Account Found']);
     }
 
     $stmt->close();
