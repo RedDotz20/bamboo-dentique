@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     //? Check if the user already exists
-    $check_query = "SELECT 1 FROM users WHERE LOWER(username) = LOWER(?) AND password = ?";
+    $check_query = "SELECT 1 FROM users WHERE LOWER(username) = LOWER(?)";
     $check_stmt = $connection->prepare($check_query);
 
     if ($check_stmt === false) {
@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       exit();
     }
 
-    $check_stmt->bind_param('ss', $username, $password);
+    $check_stmt->bind_param('s', $username);
     $check_stmt->execute();
     $check_stmt->store_result();
 
@@ -71,18 +71,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   $json = file_get_contents('php://input');
   $data = json_decode($json, true);
 
-  if (isset($data['username']) && isset($data['password'])) {
+  if (isset($data['username'])) {
     $username = $data['username'];
-    $password = $data['password'];
 
-    $stmt = $connection->prepare('DELETE FROM users WHERE username = ? AND password = ?;');
+    $stmt = $connection->prepare('DELETE FROM users WHERE username = ?');
     if ($stmt === false) {
       http_response_code(500);
       echo json_encode([ 'message' => 'Database error: Unable to Prepare Statement' ]);
       exit();
     }
 
-    $stmt->bind_param('ss', $username, $password);
+    $stmt->bind_param('s', $username);
     $stmt->execute();
     
     if ($stmt->affected_rows > 0) {

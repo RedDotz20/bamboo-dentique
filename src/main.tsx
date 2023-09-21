@@ -10,6 +10,9 @@ import './styles/fontFamily.css';
 import './styles/index.css';
 
 const theme = createTheme({
+	typography: {
+		fontFamily: 'Quicksand',
+	},
 	palette: {
 		primary: {
 			main: '#caa67d',

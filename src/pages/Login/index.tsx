@@ -39,8 +39,8 @@ export default function LoginPage() {
 	// };
 
 	const handleSubmit = (event: FormEventType) => {
-		loginService(loginData); // login service
 		event.preventDefault();
+		loginService(loginData); //? login service
 	};
 
 	return (
