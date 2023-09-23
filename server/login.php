@@ -12,13 +12,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		$password = $data['password'];
 
 		$stmt = $connection->prepare('SELECT * FROM users WHERE username = ?');
-		if ($stmt === false) {
-			http_response_code(500);
-			echo json_encode([
-				'message' => 'Database error: Unable to prepare statement',
-			]);
-			exit();
-		}
 
 		$stmt->bind_param('s', $username);
 		$stmt->execute();

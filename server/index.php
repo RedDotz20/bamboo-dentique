@@ -4,18 +4,10 @@ header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: *');
 header('Access-Control-Allow-Headers: *');
 
-//? Database connection details
-$host = 'localhost';
-$database = 'react_php';
-$username = 'root';
-$password = 'admin';
+require_once 'config/database.php';
 
-//? Create a database connection
-$connection = mysqli_connect($host, $username, $password, $database);
-
-if (!$connection) {
-	die('Couldn\'t connect to MySQL: ' . mysqli_connect_error());
-}
+$connection = new DatabaseConnection();
+$connection->connect();
 
 $routes = [
 	'/login' => 'login.php?action=login',
@@ -26,8 +18,4 @@ $routes = [
 ];
 
 //? Check MySQL Connection
-// if (mysqli_ping($connection)) {
-// 	echo 'Connection is active.';
-// } else {
-// 	echo 'Connection is dead.';
-// }
+// $connection->ping();

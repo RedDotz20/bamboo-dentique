@@ -13,14 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     //? Check if the user already exists
-    $check_query = "SELECT 1 FROM users WHERE LOWER(username) = LOWER(?)";
-    $check_stmt = $connection->prepare($check_query);
-
-    if ($check_stmt === false) {
-      http_response_code(500);
-      echo json_encode([ 'message' => 'Database error: Unable to prepare statement' ]);
-      exit();
-    }
+    $check_stmt = $connection->prepare("SELECT 1 FROM users WHERE LOWER(username) = LOWER(?)");
 
     $check_stmt->bind_param('s', $username);
     $check_stmt->execute();
@@ -33,14 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 		//? User does not exist, insert the new user
-    $insert_query = "INSERT INTO users (username, password) VALUES (?, ?)";
-    $insert_stmt = $connection->prepare($insert_query);
-
-    if ($insert_stmt === false) {
-      http_response_code(500);
-      echo json_encode([ 'message' => 'Database error: Unable to Prepare Statement' ]);
-      exit();
-    }
+    $insert_stmt = $connection->prepare("INSERT INTO users (username, password) VALUES (?, ?)");
 
     $insert_stmt->bind_param('ss', $username, $hashed_password);
     $result = $insert_stmt->execute();
