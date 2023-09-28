@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once 'index.php';
 
 //? Update Username and/or Password

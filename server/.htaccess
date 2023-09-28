@@ -1,6 +1,6 @@
 RewriteEngine On
 
-#localSettings
+# For Local Settings
 
 # Handle requests for the API
 RewriteCond %{REQUEST_FILENAME} !-d

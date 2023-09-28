@@ -32,11 +32,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insert_stmt->bind_param('ss', $username, $hashed_password);
     $result = $insert_stmt->execute();
 
-      http_response_code(201);
-      echo json_encode(['message' => 'Account Successfully Registered']);
+    http_response_code(201);
+    echo json_encode(['message' => 'Account Successfully Registered']);
+    exit();
+
   } else {
-      http_response_code(500);
-      echo json_encode(['message' => 'Error while Registering the Account']);
+    http_response_code(500);
+    echo json_encode(['message' => 'Error while Registering the Account']);
+    exit();
   }
 
   if ($result) {
@@ -45,42 +48,41 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		http_response_code(400);
 		echo json_encode(['message' => 'Missing Username or Password']);
 	}
-  
 }
 
 //? Delete Current Account
 if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-  $json = file_get_contents('php://input');
-  $data = json_decode($json, true);
-
   if (isset($_SESSION["userId"])) {
+    //? Destroy Access Token
+    $tokenStmt = $connection->prepare('DELETE FROM access_tokens WHERE idusers = ?');
+		$tokenStmt->bind_param('i', $_SESSION["userId"]);
+		$tokenStmt->execute();
+
     $stmt = $connection->prepare('DELETE FROM users WHERE idusers = ?');
-
-    if ($stmt === false) {
-      http_response_code(500);
-      echo json_encode([ 'message' => 'Database error: Unable to Prepare Statement' ]);
-      exit();
-    }
-
     $stmt->bind_param('i', $_SESSION["userId"]);
     $stmt->execute();
     
     if ($stmt->affected_rows > 0) {
+      $stmt->close();
+
+      session_destroy();
+			unset($_SESSION['userId']);
+      
+      echo "POST SESSION:  " . $_SESSION['userId'] . "<br/>";
+
       http_response_code(200);
       echo json_encode(['message' => 'Account Successfully Deleted']);
-
-      session_unset();
-      session_destroy();
+      exit();
     } else {
       http_response_code(404);
       echo json_encode(['message' => 'No Matching Account Found']);
+      exit();
     }
-
-    $stmt->close();
 
   } else {
     http_response_code(400);
     echo json_encode(['message' => 'Missing Username or Password']);
+    exit();
   }
 }
 
