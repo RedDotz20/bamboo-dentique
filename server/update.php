@@ -8,9 +8,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   $data = json_decode($json, true);
 
   //? Extract the current username, current password, new username, and new password from the data
-  $idusers = $data['idusers'];
-  $current_username = $data['current_username']; //! default (required)
-  $new_username = isset($data['new_username']) ? $data['new_username'] : $current_username;
+  // $current_username = $data['current_username']; 
+  // $new_username = isset($data['new_username']) ? $data['new_username'] : $current_username;
+
+  $idusers = $_SESSION['userId'];
+  $new_username = $data['new_username'];
   $current_password = $data['current_password'];
   $new_password = isset($data['new_password']) ? $data['new_password'] : $current_password;
 
@@ -26,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   if (password_verify($current_password, $current_hashed_password)) {
     
     //? Update the username if it is different
-    if ($new_username !== $current_username) {
+    if ($new_username) {
       $update_username_stmt = $connection->prepare("UPDATE users SET username = ? WHERE idusers = ?");
       $update_username_stmt->bind_param('si', $new_username, $idusers);
       $update_username_result = $update_username_stmt->execute();
@@ -53,14 +55,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
       http_response_code(200);
       if ($update_password_result) echo json_encode(['message' => 'Password Updated successfully']);
       if ($update_username_result) echo json_encode(['message' => 'Username Updated successfully']);
+
     } else {
       http_response_code(500);
-      echo json_encode(['message' => 'Error while updating the username and/or password']);
+      echo json_encode(['message' => 'Error while Updating the Username and/or Password']);
     }
 
   } else {
       http_response_code(401);
-      echo json_encode(['message' => 'Incorrect Current Password/Username']);
+      echo json_encode(['message' => 'Incorrect Current Password and/or Username']);
   }
 }
 

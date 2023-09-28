@@ -13,7 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     //? Check if the user already exists
-    $check_stmt = $connection->prepare("SELECT 1 FROM users WHERE LOWER(username) = LOWER(?)");
+    // $check_stmt = $connection->prepare("SELECT 1 FROM users WHERE LOWER(username) = LOWER(?)");
+    $check_stmt = $connection->prepare("SELECT 1 FROM users WHERE username = ?");
 
     $check_stmt->bind_param('s', $username);
     $check_stmt->execute();
@@ -31,16 +32,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insert_stmt->bind_param('ss', $username, $hashed_password);
     $result = $insert_stmt->execute();
 
-    if ($result) {
       http_response_code(201);
       echo json_encode(['message' => 'Account Successfully Registered']);
-    } else {
+  } else {
       http_response_code(500);
       echo json_encode(['message' => 'Error while Registering the Account']);
-    }
+  }
 
+  if ($result) {
     $insert_stmt->close();
-
 	} else {
 		http_response_code(400);
 		echo json_encode(['message' => 'Missing Username or Password']);
@@ -53,22 +53,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
   $json = file_get_contents('php://input');
   $data = json_decode($json, true);
 
-  if (isset($data['username'])) {
-    $username = $data['username'];
+  if (isset($_SESSION["userId"])) {
+    $stmt = $connection->prepare('DELETE FROM users WHERE idusers = ?');
 
-    $stmt = $connection->prepare('DELETE FROM users WHERE username = ?');
     if ($stmt === false) {
       http_response_code(500);
       echo json_encode([ 'message' => 'Database error: Unable to Prepare Statement' ]);
       exit();
     }
 
-    $stmt->bind_param('s', $username);
+    $stmt->bind_param('i', $_SESSION["userId"]);
     $stmt->execute();
     
     if ($stmt->affected_rows > 0) {
       http_response_code(200);
       echo json_encode(['message' => 'Account Successfully Deleted']);
+
+      session_unset();
+      session_destroy();
     } else {
       http_response_code(404);
       echo json_encode(['message' => 'No Matching Account Found']);
