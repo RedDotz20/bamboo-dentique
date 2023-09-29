@@ -1,21 +1,6 @@
 <?php
 
-// session_start();
-
 require_once 'index.php';
-
-// if ($_SESSION['status'] === 'invalid' || empty($_SESSION['status'])) {
-// 	//? Set Default Invalid
-// 	$_SESSION['status'] = 'invalid';
-// }
-
-// echo "INITIAL SESSION:  " . $_SESSION['userId'] . "<br/>";
-
-// if (session_status() == PHP_SESSION_ACTIVE) {
-// 	echo "Session is active.";
-// } else {
-// 	echo "No session is active.";
-// }
 
 //? Login Existing Account
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -76,8 +61,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					echo json_encode(['error' => 'Invalid Credentials']);
 					exit();
 			}
-
-			$stmt->close();
 
 		} else {
 			http_response_code(404);

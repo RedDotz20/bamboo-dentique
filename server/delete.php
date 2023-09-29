@@ -34,6 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
       echo json_encode(['error' => 'No Matching Account Found']);
       exit();
     }
+    
   } else {
     http_response_code(404);
     echo json_encode(['error' => 'Invalid Query']);
