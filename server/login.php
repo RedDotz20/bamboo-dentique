@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 					http_response_code(200);
 					echo json_encode([
-						'message' => 'Login Successful',
+						'success' => 'Login Successful',
 						'userId' => $userId,
 						'username' => $username,
 						'access_token' => $token,

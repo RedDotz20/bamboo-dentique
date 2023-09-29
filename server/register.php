@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($check_stmt->num_rows > 0) {
       http_response_code(409);
-      echo json_encode(['message' => 'Account Already Exists']);
+      echo json_encode(['error' => 'Account Already Exists']);
       exit();
     }
 

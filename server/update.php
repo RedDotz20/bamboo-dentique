@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   //? Check if the current password is correct
   if (!password_verify($current_password, $current_hashed_password)) {
     http_response_code(401);
-    echo json_encode(['message' => 'Incorrect Current Password']);
+    echo json_encode(['error' => 'Incorrect Current Password']);
     exit();
   }
 
@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $update_username_stmt->bind_param('si', $new_username, $idusers);
     if ($update_username_stmt->execute()) {
       http_response_code(200);
-      echo json_encode(['success' => 'Username updated successfully']);
+      echo json_encode(['success' => 'Username updated successfully', 'newUsername' => $new_username]);
     } else {
       http_response_code(500);
       echo json_encode(['error' => 'Error updating username']);
