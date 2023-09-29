@@ -1,17 +1,11 @@
 <?php
 
-session_start();
-
 require_once 'index.php';
 
 //? Update Username and/or Password
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   $json = file_get_contents('php://input');
   $data = json_decode($json, true);
-
-  //? Extract the current username, current password, new username, and new password from the data
-  // $current_username = $data['current_username']; 
-  // $new_username = isset($data['new_username']) ? $data['new_username'] : $current_username;
 
   $idusers = $_SESSION['userId'];
   $new_username = $data['new_username'];
@@ -35,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
       $update_username_stmt->bind_param('si', $new_username, $idusers);
       $update_username_result = $update_username_stmt->execute();
       $update_username_stmt->close();
+      exit();
     } else {
       $update_username_result = true;  //? Username is the same, no need to update
     }
@@ -48,6 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
       $update_password_stmt->bind_param('si', $hashed_new_password, $idusers);
       $update_password_result = $update_password_stmt->execute();
       $update_password_stmt->close();
+      exit();
 
     } else {
       $update_password_result = true; //? Password is the same, no need to update
@@ -57,15 +53,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
       http_response_code(200);
       if ($update_password_result) echo json_encode(['message' => 'Password Updated successfully']);
       if ($update_username_result) echo json_encode(['message' => 'Username Updated successfully']);
-
+      exit();
+      
     } else {
       http_response_code(500);
       echo json_encode(['message' => 'Error while Updating the Username and/or Password']);
+      exit();
     }
 
   } else {
-      http_response_code(401);
-      echo json_encode(['message' => 'Incorrect Current Password and/or Username']);
+    http_response_code(401);
+    echo json_encode(['message' => 'Incorrect Current Password and/or Username']);
+    exit();
   }
 }
 

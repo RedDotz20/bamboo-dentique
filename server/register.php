@@ -33,12 +33,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $insert_stmt->execute();
 
     http_response_code(201);
-    echo json_encode(['message' => 'Account Successfully Registered']);
+    echo json_encode(['success' => 'Account Successfully Registered']);
     exit();
 
   } else {
     http_response_code(500);
-    echo json_encode(['message' => 'Error while Registering the Account']);
+    echo json_encode(['error' => 'Error while Registering the Account']);
     exit();
   }
 
@@ -46,44 +46,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $insert_stmt->close();
 	} else {
 		http_response_code(400);
-		echo json_encode(['message' => 'Missing Username or Password']);
+		echo json_encode(['error' => 'Missing Username or Password']);
 	}
 }
 
-//? Delete Current Account
-if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
-  if (isset($_SESSION["userId"])) {
-    //? Destroy Access Token
-    $tokenStmt = $connection->prepare('DELETE FROM access_tokens WHERE idusers = ?');
-		$tokenStmt->bind_param('i', $_SESSION["userId"]);
-		$tokenStmt->execute();
-
-    $stmt = $connection->prepare('DELETE FROM users WHERE idusers = ?');
-    $stmt->bind_param('i', $_SESSION["userId"]);
-    $stmt->execute();
-    
-    if ($stmt->affected_rows > 0) {
-      $stmt->close();
-
-      session_destroy();
-			unset($_SESSION['userId']);
-      
-      echo "POST SESSION:  " . $_SESSION['userId'] . "<br/>";
-
-      http_response_code(200);
-      echo json_encode(['message' => 'Account Successfully Deleted']);
-      exit();
-    } else {
-      http_response_code(404);
-      echo json_encode(['message' => 'No Matching Account Found']);
-      exit();
-    }
-
-  } else {
-    http_response_code(400);
-    echo json_encode(['message' => 'Missing Username or Password']);
-    exit();
-  }
-}
-
 $connection->close();
+
+
+
+
+
+// //? Delete Current Account
+// if ($_SERVER['REQUEST_METHOD'] === 'DELETE') {
+
+
+
+
+//   if (isset($_SESSION["userId"])) {
+//     //? Destroy Access Token
+//     $tokenStmt = $connection->prepare('DELETE FROM access_tokens WHERE idusers = ?');
+// 		$tokenStmt->bind_param('i', $_SESSION["userId"]);
+// 		$tokenStmt->execute();
+
+//     $stmt = $connection->prepare('DELETE FROM users WHERE idusers = ?');
+//     $stmt->bind_param('i', $_SESSION["userId"]);
+//     $stmt->execute();
+    
+//     if ($stmt->affected_rows > 0) {
+//       $stmt->close();
+
+//       // session_destroy();
+// 			// unset($_SESSION['userId']);
+//       // echo "POST SESSION:  " . $_SESSION['userId'] . "<br/>";
+
+//       http_response_code(200);
+//       echo json_encode(['success' => 'Account Successfully Deleted']);
+//       exit();
+//     } else {
+//       http_response_code(404);
+//       echo json_encode(['error' => 'No Matching Account Found']);
+//       exit();
+//     }
+
+//   } else {
+//     http_response_code(400);
+//     echo json_encode(['error' => 'Missing Username or Password']);
+//     exit();
+//   }
+// }

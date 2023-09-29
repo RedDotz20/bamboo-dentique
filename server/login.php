@@ -9,28 +9,18 @@ require_once 'index.php';
 // 	$_SESSION['status'] = 'invalid';
 // }
 
-echo "INITIAL SESSION:  " . $_SESSION['userId'] . "<br/>";
+// echo "INITIAL SESSION:  " . $_SESSION['userId'] . "<br/>";
 
-if (session_status() == PHP_SESSION_ACTIVE) {
-	echo "Session is active.";
-} else {
-	echo "No session is active.";
-}
+// if (session_status() == PHP_SESSION_ACTIVE) {
+// 	echo "Session is active.";
+// } else {
+// 	echo "No session is active.";
+// }
 
 //? Login Existing Account
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 	$json = file_get_contents('php://input');
 	$data = json_decode($json, true);
-
-	if (isset($_SESSION['userId'])) {
-		http_response_code(200);
-		echo json_encode([
-			'message' => 'User Already Logged In',
-			'userId' => $_SESSION['userId'],
-			'authenticated' => true
-		]);
-		exit();
-	}
 
 	if (isset($data['username']) && isset($data['password'])) {
 		$username = $data['username'];
@@ -47,9 +37,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			$hashedPassword = $row['password'];
 
 			if (password_verify($password, $hashedPassword)) {
-				//? Store user information in the session
-				$_SESSION['userId'] = $userId; 
-
 				//? Generate a new access token for the user
 				$generatedToken =  bin2hex(random_bytes(16));
 				$tokenStmt = $connection->prepare('INSERT INTO access_tokens (idusers, username, access_tokens) VALUES (?, ?, ?)');
@@ -67,27 +54,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 					$tokenRow = $tokenResult->fetch_assoc();
 					$token = $tokenRow['access_tokens'];
 
-					echo "POST SESSION:  " . $_SESSION['userId'] . "<br/>";
-
 					http_response_code(200);
 					echo json_encode([
 						'message' => 'Login Successful',
 						'userId' => $userId,
 						'username' => $username,
 						'access_token' => $token,
-						'authenticated' => true
 					]);
-					exit();
-				} 
 
-				$getTokenStmt->close();
+					$getTokenStmt->close();
+					exit();
+
+				} else {
+					http_response_code(404);
+					echo json_encode(['error' => 'Access Token Not Found']);
+					exit();
+				}
 
 			} else {
 					http_response_code(401);
-					echo json_encode([
-						'message' => 'Invalid Credentials',
-						'authenticated' => false
-					]);
+					echo json_encode(['error' => 'Invalid Credentials']);
 					exit();
 			}
 
@@ -95,17 +81,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 		} else {
 			http_response_code(404);
-			echo json_encode(['message' => 'User Not Found', 'authenticated' => false]);
+			echo json_encode(['error' => 'User Not Found']);
 			exit();
 		}
 
-		// $getTokenStmt->close();
-		// $tokenStmt->close();
-		// $stmt->close();
-
 	} else {
 			http_response_code(400);
-			echo json_encode(['message' => 'Missing Username or Password']);
+			echo json_encode(['error' => 'Missing Username or Password']);
 			exit();
 	}
 }
