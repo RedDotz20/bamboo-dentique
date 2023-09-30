@@ -38,9 +38,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   if (isset($new_username)) {
     $update_username_stmt = $connection->prepare("UPDATE users SET username = ? WHERE idusers = ?");
     $update_username_stmt->bind_param('si', $new_username, $idusers);
+
     if ($update_username_stmt->execute()) {
+      //? Update the username in the access_tokens table
+      $update_token_stmt = $connection->prepare("UPDATE access_tokens SET username = ? WHERE idusers = ?");
+      $update_token_stmt->bind_param('si', $new_username, $idusers);
+
+      if ($update_token_stmt->execute()) {
+        $update_token_stmt->close();
+      } else {
+        http_response_code(500);
+        echo json_encode(['error' => 'Error Updating Token Access Username']);
+        exit();
+      }
       http_response_code(200);
       echo json_encode(['success' => 'Username updated successfully', 'newUsername' => $new_username]);
+      
     } else {
       http_response_code(500);
       echo json_encode(['error' => 'Error updating username']);
@@ -49,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
   }
 
   //? Hash and update the new password if it is different
-  if (isset($new_password)) {
+  if (isset($new_password) && $new_password !== "") {
     $hashed_new_password = password_hash($new_password, PASSWORD_BCRYPT);
 
     $update_password_stmt = $connection->prepare("UPDATE users SET password = ? WHERE idusers = ?");
@@ -64,6 +77,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     }
 
     $update_password_stmt->close();
+  } else {
+    exit();
   }
 }
 
