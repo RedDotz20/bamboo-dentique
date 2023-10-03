@@ -6,11 +6,9 @@ interface CredentialsType {
 }
 
 export async function loginService(values: CredentialsType) {
+  const json = JSON.stringify(values);
   return await axiosInstance
-    .post('/login.php', {
-      username: values.username,
-      password: values.password,
-    })
+    .post('/login.php', json)
     .then((response) => {
       if (response.status === 200) {
         const { userId, username, access_token } = response.data;

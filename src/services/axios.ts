@@ -5,16 +5,14 @@ import axios from 'axios';
 
 // const baseURL = `http://${SERVER_HOSTNAME}:${SERVER_PORT}`;
 
-const baseURL = `https://casadeestella.online/api`;
-// const baseURL = `https://bamboodentique01.000webhostapp.com`;
+// const baseURL = `https://casadeestella.online/api`;
+const baseURL = `https://bamboodentique01.000webhostapp.com`;
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
   headers: {
-    'Access-Control-Allow-Origin':
-      'https://bamboo-dentique-reddotz.netlify.app/', // Replace with your Netlify frontend URL
-    'Access-Control-Allow-Methods': '*', // Adjust to the allowed HTTP methods
-    'Access-Control-Allow-Headers': '*', // Adjust to the allowed headers
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
   },
 });
 
