@@ -5,7 +5,8 @@ import axios from 'axios';
 
 // const baseURL = `http://${SERVER_HOSTNAME}:${SERVER_PORT}`;
 
-const baseURL = `https://bamboodentique01.000webhostapp.com`;
+const baseURL = `https://casadeestella.online/api`;
+// const baseURL = `https://bamboodentique01.000webhostapp.com`;
 
 export const axiosInstance = axios.create({
   baseURL: baseURL,
